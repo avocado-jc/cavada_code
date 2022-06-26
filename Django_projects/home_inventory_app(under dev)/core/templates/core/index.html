@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <link href="{% static 'core/main.css' %}">
+</head>
+<body>
+    <h1>This is the Index Page</h1>
+    {% if items %}
+    <div class="quick-links">
+        
+        {% for item in items %}
+        <div class="quick-link">
+            <a href="#{{item}}">{{item}}</a>
+        </div>
+         
+        {% endfor %}    
+        
+    </div>
+    <div class="add-item">
+        <form action="{ url 'core:index' %}" method="post">
+            
+        </form>
+    </div>
+    <div class="items">
+        
+        <h1>Items:</h1>
+        {% for item in items %}
+        
+        <div class='item' id ='{{item}}'>
+            <form action="{% url 'core:index' %}" method="post">
+                <fieldset>
+                    <legend>
+                        <h2>{{item}}</h2>
+                        
+                    </legend>
+                    
+                    <div class="subcat">
+                        <fieldset>
+                            <legend>
+                                Subtype:
+                            </legend>
+                            <p>{{item.subcategory}}</p>
+                        </fieldset> </div>
+                    <div class="cat">
+                        <fieldset>
+                            <legend>
+                                Type: 
+                            </legend>
+                            <p>{{item.subcategory.category}}</p>
+                        </fieldset></div>
+                    <div class="supercat">
+                        <fieldset>
+                            <legend>
+                                Area: 
+                            </legend>
+                            <p>{{item.subcategory.category.supercategory}}</p>
+                        </fieldset></div>
+                    <div class="desc">
+                        <fieldset>
+                            <legend>
+                                Description: 
+                            </legend>
+                            <p>{{item.desc}}</p>
+                        </fieldset></div>
+                    <div class="price">
+                        <fieldset>
+                            <legend>
+                                Price:
+                            </legend>
+                            <p>{{item.price}}</p>
+                        </fieldset></div>
+                    <div class="upc">
+                        <fieldset>
+                            <legend>
+                                UPC:
+                            </legend>
+                            <p>{{item.upc}}</p>
+                        </fieldset></div>
+                    <div class="record-date">
+                        <fieldset>
+                            <legend>
+                                Date Recorded:    
+                            </legend>
+                            <p>{{item.record_date}}</p>
+                            
+                        </fieldset></div>
+                    <div class="expire_date">
+                        <fieldset>
+                            <legend>
+                                Expiration Date:
+                            </legend>
+                            <p>{{item.expire_date}}</p>
+                            
+                        </fieldset></div>
+                    <div class="item-count">
+                        <fieldset>
+                            <legend>
+                                Item Count
+                            </legend>
+                            <p>{{item.ct}}</p>
+                        </fieldset></div>
+                    {% if item.discarded == True %}
+                    <div class="discarded">
+                        <fieldset>
+                            <legend>
+                                Discarded:
+                            </legend>
+                            Yes
+                        </fieldset></div>
+                    {% else %}
+                    <div class="discarded">
+                        <fieldset>
+                            <legend>
+                                Discarded:
+                            </legend>
+                            No
+                        </fieldset></div>
+                    {% endif %}
+                <input type="radio" name='item' id="d">
+                    <label for="d">Delete </label> 
+                <input type="radio" name='item' id="c">
+                    <label for="c">Change Ct </label> 
+                <button type="submit">Submit Changes</button>
+                </fieldset>
+                   
+            </form>
+        </div>
+        
+        {% endfor %}
+        
+    </div>
+    {% endif %}    
+    
+</body>
+</html>
