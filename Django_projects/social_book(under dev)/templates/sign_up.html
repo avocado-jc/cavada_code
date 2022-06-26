@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-up</title>
+</head>
+<body>
+    <h1><fieldset><legend>Parsi Book</legend></fieldset></h1>
+    <h4 style="font-size: 12vh">حال شما چطورید؟</h4>
+    <form action="profile.html" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Username" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Confirm Password" required>
+        <div class="checkbox">
+            <input type="checkbox" id="checkbox1">
+            <label for="checkbox1"><span class="checkbox-icon"></span>I agree to terms.</label>
+        </div>
+        <button type="submit">Sign-Up</button>
+        <p>Do you have an account? <a href="form-login.html">Login</a></p>
+    </form>
+    
+</body>
+</html>

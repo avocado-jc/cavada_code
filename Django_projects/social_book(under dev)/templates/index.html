@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+</head>
+<body>
+    <div class="header">
+        <h4>.header</h4>
+
+        <div class="nav_bar">
+            <h4>.nav_bar</h4>
+        </div>
+        <div class="other">
+            <h4>.other</h4>
+
+        </div>
+    </div>
+    <div class = "section">
+        {% for profile in profiles %}
+        <div class="profile">
+            <h2>{{profile}}</h2>
+            <h3>{{profile.id_user}}</h3>
+            <p>{{profile.bio}}</p>
+            <h4>{{profile_img}}</h4>
+            <p>{{profile.create_date}}</p>
+            <p>{{profile.location}}</p>
+            
+        </div>
+        {% endfor %}
+    </div>    
+
+        
+    
+</body>
+</html>
