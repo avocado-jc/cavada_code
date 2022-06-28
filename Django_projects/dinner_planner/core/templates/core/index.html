@@ -1,0 +1,171 @@
+{% load static %}
+{% load my_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'core/main.css' %}">
+
+    <title>Dinner Planner</title>
+</head>
+<body>
+    <a href="{% url 'core:index' %}">Refresh</a>
+
+    {% if plates %}
+    {% if day %}
+        <h1>Today is {{day}}</h1>
+    {% endif %}
+   
+
+    <div class="month">      
+      <ul>
+        <li class="prev">&#10094;</li>
+        <li class="next">&#10095;</li>
+        <li>
+        {% if month %}
+        {{month}}<br>
+        {% endif %}
+        {% if year %}
+        <span style="font-size:18px">{{year}}</span>
+
+        {% endif %}  
+        </li>
+      </ul>
+    </div>
+    
+    <ul class="weekdays">
+      <li>Sun</li>
+      <li>Mon</li>
+      <li>Tue</li>
+      <li>Wed</li>
+      <li>Thu</li>
+      <li>Fri</li>
+      <li>Sat</li>
+    </ul>
+    {% if days_in_month %}
+        
+    
+    
+    <div class="days"> 
+    {% if first_day_index %}
+    {% for i in first_day_index|range %}
+        <section class="day"></section>
+    {% endfor %}
+    {% endif %} 
+    {% for i in days_in_month|range %}
+        
+        {% if day_num %}
+        {% if i != day_num %}
+        <section class="day">{{ forloop.counter }}</section>    
+            {% else %}
+
+        <section class="day">
+            <span class="active">
+                <a href="#">{{ forloop.counter }}</a> 
+            </span>
+        </section>
+            {% endif %}
+            {% endif %}
+        
+    {% endfor %}
+    </div>
+    {% endif %}
+    
+    
+    
+    {% for plate in plates %}
+        
+    <div id= {{ forloop.counter }}>
+    <fieldset>
+        <legend>{{plate}}</legend>
+        <table>
+            <tr>
+                <th>Protein</th>
+                <th>Starch</th>
+                <th>Veggie</th>
+                <th>Sauce</th>
+                <th>Extra</th>
+                <th>Date Created</th>
+
+            </tr>
+            <tr>
+                <td>{{plate.protein}}</td>
+                <td>{{plate.starch}}</td>
+                <td>{{plate.veggie}}</td>
+                <td>{{plate.sauce}}</td>
+                <td>{{plate.extra}}</td>
+                <td>{{plate.date_created}}</td>
+            </tr>
+       
+        </table>
+        <form action="{% url 'core:delete' %}" id="delete" method="post">
+            {% csrf_token %}        
+                
+            <input type="hidden" name= "delete" id="plate{{ forloop.counter }}" value="{{ plate.id }}">
+            <button type="submit" form_id="delete"> Delete</button>
+        </form>
+        <form action="" id="edit" method="post">
+            {% csrf_token %}        
+                
+            <details>
+                <summary>Edit</summary>
+            <form action="{% url 'core:edit' %}" name="edit" id="edit" method="post">
+                {% csrf_token %}        
+            
+                <input type="date" name = "date" id="date">
+                <label for="date">Date</label><br>
+                <input type="text" name = "protein" id= "protein" placeholder="protein" value="{{plate.protein}}" required>
+                <label for="protein">Protein</label><br>
+                <input type="text" name = "starch" id= "starch" placeholder="starch" value="{{plate.starch}}" required>
+                <label for="starch">Starch</label><br>
+                <input type="text" name = "veggie" id= "veggie" placeholder="veggie" value="{{plate.veggie}}" required>
+                <label for="veggie">Veggie</label><br>
+                <input type="text" name = "sauce" id= "sauce" placeholder="sauce" value="{{plate.sauce}}" >
+                <label for="sauce">Sauce</label><br>
+                <input type="text" name = "extra" id= "extra" placeholder="extra" value="{{plate.extra}}" >
+                <label for="veggie">Extra</label><br>
+                <button type="submit">Submit</button>
+            </form>
+            </details>
+
+        </form>
+    </fieldset>
+    </div>    
+        
+        {% endfor %}
+        {% endif %}
+
+    <h1>Make a Plate!</h1>
+    <form action="{% url 'core:add' %}" method="post">
+        <fieldset>
+            <legend>
+                <h1>Plate </h1>
+            </legend>
+            {% csrf_token %}
+            
+                <input type="date" name = "date" id="date">
+                <label for="date">Date</label><br>
+                <input type="text" name = "protein" id= "protein" placeholder="protein" required>
+                <label for="protein">Protein</label><br>
+                <input type="text" name = "starch" id= "starch" placeholder="starch" required>
+                <label for="starch">Starch</label><br>
+                <input type="text" name = "veggie" id= "veggie" placeholder="veggie" required>
+                <label for="veggie">Veggie</label><br>
+                <input type="text" name = "sauce" id= "sauce" placeholder="sauce">
+                <label for="sauce">Sauce</label><br>
+                <input type="text" name = "extra" id= "extra" placeholder="extra">
+                <label for="veggie">Extra</label><br>
+                <button type="submit">Submit</button>
+            
+
+        </fieldset>
+    
+    </form>
+    
+    
+
+    
+</body>
+</html>
