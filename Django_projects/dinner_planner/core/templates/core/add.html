@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'core:index' %}">Refresh</a>
+    {% if plates %}
+    {% for plate in plates %}
+        
+    
+    <h1>{{plate}}</h1>
+
+        <p>{{plate.protein}}</p><br>
+        <p>{{plate.starch}}<br></p>
+        <p>{{plate.veggie}}<br></p>
+        <p>{{plate.sauce}}<br></p>
+        <p>{{plate.extra}}<br></p>
+        <p>{{plate.date_created}}<br></p>
+        <p>{{plate.date_modified}}<br></p>
+
+
+        {% endfor %}
+    
+
+    <h1>Make a Plate!</h1>
+    <form action="{% url 'core:add' %}" method="post">
+        <fieldset>
+            <legend>
+                <h1>Plate </h1>
+            </legend>
+            {% csrf_token %}
+            
+                <input type="date" id="date" placeholder={{day}} value="06-27-2022">
+                <label for="date">Date</label><br>
+                <input type="text" id= "protein" placeholder="protein" value="flank steak">
+                <label for="protein">Protein</label><br>
+                <input type="text" id= "starch" placeholder="starch" value="noodles">
+                <label for="starch">Starch</label><br>
+                <input type="text" id= "veggie" placeholder="veggie" value="asparagus">
+                <label for="veggie">Veggie</label><br>
+                <input type="text" id= "sauce" placeholder="sauce" value="teriyaki">
+                <label for="sauce">Sauce</label><br>
+                <input type="text" id= "extra" placeholder="extra" value="fortune cookie">
+                <label for="veggie">Extra</label><br>
+                <button type="submit">Submit</button>
+            
+
+        </fieldset>
+    
+    </form>
+
+    {% endif %}
+    
+</body>
+</html>
